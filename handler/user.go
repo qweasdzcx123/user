@@ -2,9 +2,10 @@ package handler
 
 import (
 	"context"
-	user "github.com/qweasdzcx123/user/proto/user"
+
 	"github.com/qweasdzcx123/user/domain/model"
 	"github.com/qweasdzcx123/user/domain/service"
+	user "github.com/qweasdzcx123/user/proto/user"
 )
 
 type User struct {
@@ -37,7 +38,7 @@ func (u *User) Login(ctx context.Context, userLogin *user.UserLoginRequest, logi
 }
 
 //查询用户信息
-func (u *User) GetUserInfo(ctx context.Context, userInfoRequest *user.UserInfoRequest, userInfoResponse *user.UserInfoResponse) error {
+func (u *User) GetUserInfo(ctx context.Context, userInfoRequest *user.UserInfoResquest, userInfoResponse *user.UserInfoResponse) error {
 	userInfo, err := u.UserDataService.FindUserByName(userInfoRequest.UserName)
 	if err != nil {
 		return err

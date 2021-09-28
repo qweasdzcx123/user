@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/jinzhu/gorm"
+	"github.com/micro/go-micro/v2"
 	"github.com/qweasdzcx123/user/domain/repository"
 	service2 "github.com/qweasdzcx123/user/domain/service"
 	"github.com/qweasdzcx123/user/handler"
-	user "ggithub.com/qweasdzcx123/user/proto/user"
-	"github.com/jinzhu/gorm"
-    "github.com/micro/go-micro/v2"
+	user "github.com/qweasdzcx123/user/proto/user"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -22,7 +23,7 @@ func main() {
 	srv.Init()
 
 	//创建数据库连接
-	db,err :=gorm.Open("mysql","root:123456@/micro?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "root:123456@/micro?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -37,7 +38,7 @@ func main() {
 	//创建服务实例
 	userDataService := service2.NewUserDataService(repository.NewUserRepository(db))
 	//注册Handler
-	err = user.RegisterUserHandler(srv.Server(),&handler.User{UserDataService:userDataService})
+	err = user.RegisterUserHandler(srv.Server(), &handler.User{UserDataService: userDataService})
 	if err != nil {
 		fmt.Println(err)
 	}

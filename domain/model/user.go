@@ -1,12 +1,13 @@
 package model
-type User struct{
+
+type User struct {
 	//主键
-	ID int64 'gorm:"primary;not_null;auto_increment"'
+	ID int64 `gorm:"primary_key;not_null;auto_increment"`
 	//用户名称
-	UserName string 'gorm:"unique_idex;not_null"'
-	//需要添加的字段
+	UserName string `gorm:"unique_index;not_null"`
+	//添加需要的字段
 	FirstName string
-	//....
+	//...
 	//密码
-	HashPassword sring
+	HashPassword string
 }
